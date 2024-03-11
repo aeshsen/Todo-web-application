@@ -1,53 +1,51 @@
-import React, { useState } from 'react'
+import React, { useRef} from 'react'
 import { GrAdd } from "react-icons/gr";
 
 function Addtodo({newitem}) {
 
-     const [initaltext,setinitaltext] = useState("");
-     const [initaldate,setinitaldate] = useState("");
-     const [initaltime,setinitaltime] = useState("");
 
-   const handletext =(event)=>{
-    setinitaltext(event.target.value)
-   }
-   const handledate =(event)=>{
-    setinitaldate(event.target.value)
-   }
-   const handletime =(event)=>{
-    setinitaltime(event.target.value)
-   }
+     const nameelement = useRef("");
+     const dateelement = useRef("");
+     const timeelement = useRef("");
 
-   const handlebtn =() =>{
-      newitem(initaltext,initaldate,initaltime);
-      setinitaldate("");
-      setinitaltext("");
-      setinitaltime("");
+   
+
+   const handlebtn =(e) =>{
+    e.preventDefault();
+     const name = nameelement.current.value;
+     const date = dateelement.current.value;
+     const time = timeelement.current.value;
+
+     nameelement.current.value = "";
+     dateelement.current.value = "";
+     timeelement.current.value = "";
+
+
+      newitem(name,date,time);
+     
    };
 
-  
-
-
-
+ 
   return (
     <div className="container text-center mydiv ">
-  <div className="row">
+  <form className="row" onSubmit={handlebtn}>
     <div className="col-4">
-     <input type="text" onChange={handletext} placeholder='Enter your Todo Task here' value={initaltext} />
+     <input type="text" placeholder='Enter your Todo Task here' ref={nameelement} />
     </div>
     <div className="col-4">
-     <input type="date" onChange={handledate} value={initaldate}/>
+     <input type="date"  ref={dateelement}/>
     </div>
     <div className="col-2">
-     <input type="time" onChange={handletime}  value={initaltime}/>
+     <input type="time" ref={timeelement} />
     </div>
     <div className="col-2">
-    <button type="button" className="btn btn-success"
+    <button  className="btn btn-success"
     
-     onClick={handlebtn}
+    
     
     > <GrAdd></GrAdd> </button>
     </div>
-  </div>
+  </form>
 </div>
   )
 }

@@ -16,8 +16,8 @@ function App() {
      
 
       if(name!=="" && date!=="" && time!==""){
-        let newobj = [...showval , {taskname:name,taskdate:date,tasktime:time},];
-        setshowval(newobj);
+       
+        setshowval((current) =>  [...current , {taskname:name,taskdate:date,tasktime:time},]   );
 
       }
       else{
